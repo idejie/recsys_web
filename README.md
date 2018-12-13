@@ -12,7 +12,7 @@
 - SVD Based
   -  Transfering the dataset to User-Item matrix
   -  Using SVD++(Because the interest of user will  decrease in terms of time) to split User_Matrix and News_Matrix
-  -  Using KNN to cluster
+  -  Using KNN to get the similar user or news
 
 - NMF Based
   -  Likely SVD
