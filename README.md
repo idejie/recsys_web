@@ -19,7 +19,8 @@
   
  ### Result
  -  Contented Based
- The test  result for CNN_Topic_Extraction
+ 
+ > The test  result for CNN_Topic_Extraction
  ```
  Test Loss:   0.11, Test Acc:  96.85%
 Precision, Recall and F1-Score...
@@ -44,6 +45,7 @@ weighted avg       0.97      0.97      0.97     10000
  ## Environment 
  - Python3 
  - `requirements.txt`
+ - (For China)To download the dataset you maybe need the internet access to Google Drive
  
  ## Reference
  - [gaussic/text-classification-cnn-rnn](https://github.com/gaussic/text-classification-cnn-rnn)
