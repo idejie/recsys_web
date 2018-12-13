@@ -97,3 +97,9 @@ def get_news_records():
             else:
                 records[news_id] = [item]
     return records
+
+def get_news_topic_tag(news_id):
+    with open("classification/data/rec_news/news_topic.json", 'r') as f:
+        news_topic = eval(f.readlines()[0])
+    return news_topic[news_id]['topic'],news_topic[news_id]['tags']
+

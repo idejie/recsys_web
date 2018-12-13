@@ -1,11 +1,12 @@
 from flask import Flask
-from flask import render_template,redirect
-from flask import request
+from flask import render_template, redirect
+from flask import request,json
 from dataproc import get_news as get_news_from_file
 from dataproc import get_topic_news as get_topic_news_from_file
 from dataproc import get_records
+import  predict_news
 app = Flask(__name__, static_folder='static/assets', static_url_path='/assets')
-
+hot_news = predict_news.get_hot_news()
 
 @app.route('/')
 def hello_world():
@@ -14,11 +15,11 @@ def hello_world():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method=='GET':
+    if request.method == 'GET':
         return render_template('login.html')
-    if request.method=='POST':
+    if request.method == 'POST':
         u_id = request.form['id']
-        return redirect('/user/id/'+u_id)
+        return redirect('/user/id/' + u_id)
 
 
 @app.route("/sign")
@@ -73,7 +74,18 @@ def get_news_record(news_id):
 
 @app.route("/user/id/<user_id>")
 def get_user(user_id):
-    return render_template('user.html')
+    topic_sum,tags_sum = predict_news.user_count(user_id)
+    tags=[]
+    for tag,c in tags_sum.items():
+        tags.append({"name":tag,"value":c})
+    topics=[]
+
+    for topic,c in topic_sum.items():
+        topics.append({"name":topic,"value":c})
+    history = predict_news.get_user_history(user_id)
+    top_news= predict_news.get_top_user_news(user_id)
+    top_user = predict_news.get_top_users(user_id)
+    return render_template('user.html', id=user_id,tags=json.dumps(tags),topics=json.dumps(topics),hot_news=hot_news,history=history,top_news=top_news,top_user=top_user)
 
 
 @app.route("/dashboard")
@@ -82,6 +94,8 @@ def dashboard():
     # records = get_records()[:1000]
     # print(news_topic)
     return render_template('dashboard.html', news_topic=news_topic)
+
+
 @app.route("/dashboard2")
 def dashboard2():
     # news_topic = get_news_from_file()
