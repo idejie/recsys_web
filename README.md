@@ -1,6 +1,7 @@
 # A Flask Web for Recommendation System
 
-> It's just a homework 
+> It's just a homework .
+
 > Because the dataset is too small(the User-Iterm matrix only 0 or 1) , this rec system only  offline.
 ### Feature
 
