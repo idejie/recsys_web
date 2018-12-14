@@ -37,7 +37,10 @@ def get_news(news_id):
     news_topic = get_news_from_file()
     if news_id in news_topic:
         news = news_topic[news_id]
-        return render_template('news.html', news=news, id=news_id)
+        sim_news = predict_news.get_top_news(news_id)
+        top_user=predict_news.get_users_for_news(news_id)
+        readers =predict_news.get_news_history(news_id)
+        return render_template('news.html', news=news, id=news_id,hot_news=hot_news,sim_news=sim_news,top_user=top_user,readers=readers)
     else:
         return "404"
 

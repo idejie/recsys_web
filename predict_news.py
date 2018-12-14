@@ -2,9 +2,11 @@ with open('classification/data/rec_news/news.json', 'r') as f:
     news = eval(f.read())
 with open('classification/data/rec_news/user_train.data', 'r') as f:
     users_train = eval(f.read())
-
+with open('classification/data/rec_news/user_test.data', 'r') as f:
+    users_test = eval(f.read())
 import math
 import datetime
+
 
 def get_top_news(news_id):
     tags_cur = news[news_id]['tags']
@@ -14,7 +16,7 @@ def get_top_news(news_id):
     news_score = {}
     for tag, _ in tags_cur:
         tags_set.add(tag)
-    print(tags_set)
+    # print(tags_set)
     for k, n in news.items():
 
         if k != news_id:
@@ -28,8 +30,15 @@ def get_top_news(news_id):
                     score += 1
             news_score[k] = score
             # print('ss', score)
-    score_sorted = sorted(news_score.items(), key=lambda x: x[1], reverse=True)
-    return score_sorted
+    score_sorted = sorted(news_score.items(), key=lambda x: x[1], reverse=True)[:10]
+    scored_news = []
+    for n_id, _ in score_sorted:
+        title = news[n_id]['title']
+        news_time = news[n_id]['news_time']
+        topic = news[n_id]['topic']
+
+        scored_news.append([n_id, title, topic, news_time.replace('\n', '')])
+    return scored_news
 
 
 def get_user_core(user_id):
@@ -88,7 +97,7 @@ def get_top_users(user_id):
                     xy = XY(tags_cur_core, topics_cur_score, tags_tmp_core, topics_tmp_score)
                     score[k] = float(xy) / float(x * y)
     # print(score)
-    score = sorted(score,key=lambda x:x[1],reverse=True)[:10]
+    score = sorted(score, key=lambda x: x[1], reverse=True)[:10]
 
     return score
 
@@ -96,14 +105,14 @@ def get_top_users(user_id):
 def get_user_history(user_id):
     click = users_train[user_id]['click']
     history = []
-    for n_id,t in click:
+    for n_id, t in click:
         title = news[n_id]['title']
         news_time = news[n_id]['news_time']
         topic = news[n_id]['topic']
 
         times = datetime.datetime.fromtimestamp(int(t))
 
-        history.append([n_id,title,topic,news_time.strip(),times.strftime('%Y-%m-%d %H:%M:%S')])
+        history.append([n_id, title, topic, news_time.strip(), times.strftime('%Y-%m-%d %H:%M:%S')])
 
     return history
 
@@ -173,13 +182,13 @@ def get_top_user_news(user_id):
     for i in news_hist:
         top_news = get_top_news(i[0])
         for t in top_news:
-            id= t[0]
+            id = t[0]
             if id in news_score:
                 news_score[id] += 1
             else:
                 news_score[id] = 1
 
-    news_sorted = sorted(news_score,key=lambda x:x[1],reverse=True)[:10]
+    news_sorted = sorted(news_score, key=lambda x: x[1], reverse=True)[:10]
     # print(news_sorted)
     top_news = []
     for id in news_sorted:
@@ -192,7 +201,40 @@ def get_top_user_news(user_id):
         top_news.append([title, topic, tags.strip(), news_time, id])
     return top_news
 
+
 # print(get_hot_news())
-# print(user_count('5218791'))
+
 # print(get_top_users('52550'))
-# print(get_user_history('52550'))
+# print(get_top_news('100648598'))
+def get_users_for_news(news_id):
+    topic = news[news_id]['topic']
+    tags = news[news_id]['tags']
+    tags_set = set()
+    for tag, _ in tags:
+        tags_set.add(tag)
+    user_score = {}
+    for userid, _ in users_train.items():
+        score = 0
+        c_topic, c_tags = user_count(userid)
+        if topic in c_topic:
+            score = score + c_topic[topic] * 3
+        for tag in tags_set:
+            if tag in c_tags:
+                score += c_tags[tag]
+        user_score[userid] = score
+    top_users = sorted(user_score, key=lambda x: x[1], reverse=True)[:10]
+    return top_users
+
+
+def get_news_history(n_id):
+    users_set=set()
+    with open('classification/data/cf_rec/u.train') as f:
+        for line in f.readlines():
+            data = line.split('\t')
+            if data[1]==n_id:
+                users_set.add(data[0])
+            if len(users_set)>=6:
+                return list(users_set)
+    return list(users_set)
+
+# print(get_news_history('100648598'))
