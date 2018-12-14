@@ -12,9 +12,9 @@
 
 - DashBoard
 
-  - Extracted the topic and tags of all news and Data reformated as `json`
+  - Extracted the topic and tags of all news and Data reformated 
 
-  ```json
+  ```
   {
   	'100648598': { 
   		'title': '消失前的马航370',
