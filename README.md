@@ -6,7 +6,7 @@
 
 ![](https://ws2.sinaimg.cn/large/006tNbRwly1fy68gktj58j31ee0o2wgo.jpg)
 
-- [~~在线Demo~~]()   For more details , you can visist my blog ：[记又一次推荐系统](ttps://blog.idejie.com/2018/12/14/a-rec-sys/)。
+- [~~在线Demo~~]()   For more details , you can visist my blog ：[记又一次推荐系统](https://blog.idejie.com/2018/12/14/a-rec-sys/)。
 
 ###  Introduction
 
