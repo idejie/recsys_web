@@ -5,8 +5,7 @@
 > Because the dataset is too small(the User-Iterm matrix only 0 or 1) , this rec system only run  offline.
 
 ![](https://ws2.sinaimg.cn/large/006tNbRwly1fy68gktj58j31ee0o2wgo.jpg)
-
-- [~~在线Demo~~]()由于VM要付费，暂时停了，如需演示联系（i@idejie.com）   
+ 
 - For more details , you can visist my blog ：[记又一次推荐系统](https://blog.idejie.com/2018/12/14/a-rec-sys/)。
 
 ###  Introduction
