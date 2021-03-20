@@ -4,7 +4,7 @@ Click==7.0
 Flask==1.0.2
 idna==2.8
 itsdangerous==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 MarkupSafe==1.1.0
 requests==2.21.0
 urllib3==1.24.1
@@ -17,7 +17,7 @@ Flask==1.0.2
 idna==2.8
 itsdangerous==1.1.0
 jieba==0.39
-Jinja2==2.10
+Jinja2==2.11.3
 joblib==0.13.0
 lightfm==1.15
 MarkupSafe==1.1.0
