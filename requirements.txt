@@ -7,7 +7,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 MarkupSafe==1.1.0
 requests==2.21.0
-urllib3==1.24.1
+urllib3==1.26.5
 Werkzeug==0.14.1
 certifi==2018.11.29
 chardet==3.0.4
@@ -30,5 +30,5 @@ requests==2.21.0
 scikit-surprise==1.0.6
 scipy==1.2.0rc2
 six==1.12.0
-urllib3==1.24.1
+urllib3==1.26.5
 Werkzeug==0.14.1
